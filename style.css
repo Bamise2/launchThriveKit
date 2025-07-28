@@ -185,7 +185,7 @@ body {
 
 /* Features Section */
 .features {
-  padding: 100px 50;
+  padding: 100px 50px;
   background: #f8fafc;
   position: relative;
   display: flex;
