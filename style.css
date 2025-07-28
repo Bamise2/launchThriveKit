@@ -4,12 +4,17 @@
   box-sizing: border-box;
 }
 
+html,body{
+  overflow-x: hidden;
+
+}
+
 body {
   font-family: "Inter", sans-serif;
   line-height: 1.6;
   color: #333;
-  overflow-x: hidden;
 }
+
 
 /* Header */
 .header {
@@ -107,7 +112,7 @@ body {
   text-align: center;
   position: relative;
   overflow: hidden;
-  
+  max-width: 1200px;
 }
 
 .hero::before {
@@ -181,9 +186,11 @@ body {
 
 /* Features Section */
 .features {
-  padding: 100px 0;
+  padding: 100px 50;
   background: #f8fafc;
   position: relative;
+  display: flex;
+  justify-content: center;
 }
 
 .features-container {
