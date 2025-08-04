@@ -502,8 +502,94 @@ body {
   background: #f1f5f9;
 }
 
+/* want more link */
+.want-more-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 20px;
+            color: #6B46C1;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid transparent;
+            border-radius: 25px;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(45deg, #6B46C1, #9333EA, #EC4899) border-box;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .package-card.basic .want-more-link {
+            color: #10B981;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(45deg, #10B981, #059669) border-box;
+        }
+
+        .package-card.featured .want-more-link {
+            color: white;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .want-more-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .want-more-link:hover::before {
+            left: 100%;
+        }
+
+        .want-more-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 70, 193, 0.3);
+        }
+
+        .package-card.basic .want-more-link:hover {
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .package-card.featured .want-more-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+        }
+
+        .want-more-link i {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .want-more-link:hover i {
+            transform: translateX(3px);
+        }
+
+        /* Sparkle animation for want more links */
+        .want-more-link::after {
+            content: '✨';
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.8rem;
+            opacity: 0;
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0.5) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1) rotate(180deg); }
+        }
+
 /* Additional Services Section */
-.additional-services {
+#additional-services {
   padding: 60px 0;
   background: #f8fafc;
   border-top: 1px solid #e2e8f0;
@@ -516,14 +602,14 @@ body {
   text-align: center;
 }
 
-.additional-services h3 {
+#additional-services h3 {
   font-size: 2rem;
   font-weight: 700;
   color: #6b46c1;
   margin-bottom: 2rem;
 }
 
-.additional-services p {
+#additional-services p {
   font-size: 1.1rem;
   color: #64748b;
   margin-bottom: 2rem;
@@ -536,13 +622,15 @@ body {
   margin-top: 2rem;
 }
 
-.services-grid a {
-  text-decoration: none;
-}
+
 
 .service-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   background: white;
-  padding: 1.5rem;
+  padding: 1.5rem ;
   border-radius: 15px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
@@ -565,7 +653,6 @@ body {
 .service-item p {
   font-size: 0.9rem;
   color: #64748b;
-  margin: 0;
 }
 
 /* What You Get Section */
