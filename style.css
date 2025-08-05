@@ -558,7 +558,7 @@ body {
 .service-popup {
   position: fixed;
   top: 15%;
-  left: 91%;
+  left: 60%;
   transform: translateX(-50%);
   background-color: #333;
   color: white;
