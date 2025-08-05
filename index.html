@@ -378,6 +378,11 @@
               <p>Tailored advertising materials</p>
             </div>
           </label>
+
+          <!-- Service message -->
+          <div id="servicePopup" class="service-popup">
+            Select at least one additional service.
+          </div>
         </div>
 
         <!-- New: Request Custom Design Section -->
@@ -514,7 +519,7 @@
               name="Additional Services"
               id="selectedServices"
             />
-            <button type="submit" class="quote-button">
+            <button type="submit" id="quote-button" class="quote-button">
               <i class="fas fa-paper-plane"></i>
               Send Custom Quote Request
             </button>
@@ -678,6 +683,9 @@
       });
 
       //Form submission using formspree
+      const showPopupButton = document.getElementById("quote-button");
+      const servicePopup = document.getElementById("servicePopup");
+
       document
         .getElementById("customQuoteForm")
         .addEventListener("submit", function (e) {
@@ -687,11 +695,45 @@
           const formData = new FormData(form);
 
           // Get all checked services
-          const selectedServices = Array.from(
-            document.querySelectorAll(
-              'input[name="additionalServices"]:checked'
-            )
-          ).map(
+          const checkedBoxes = document.querySelectorAll(
+            'input[name="additionalServices"]:checked'
+          );
+
+          if (checkedBoxes.length === 0) {
+            // Clear any existing timers to prevent multiple popups or weird behavior
+            clearTimeout(servicePopup.dataset.hideTimer);
+            clearTimeout(servicePopup.dataset.removeTimer);
+
+            // 1. Fade in
+            servicePopup.classList.add("show");
+
+            // 2. Stay for 7 seconds, then fade out
+            servicePopup.dataset.hideTimer = setTimeout(() => {
+              servicePopup.classList.remove("show");
+
+              // 3. After fade-out transition, hide completely
+              // The CSS transition is 0.5s, so we wait a bit longer to ensure it's done
+              servicePopup.dataset.removeTimer = setTimeout(() => {
+                // No need to do anything here, as removing 'show' class
+                // already sets opacity to 0 and visibility to hidden.
+                // This timeout is mainly to ensure the transition completes
+                // before potentially re-showing it quickly.
+              }, 500); // Matches CSS transition duration
+            }, 3500); // 7 seconds
+
+            const servicesSection = document.querySelector(
+              "#additional-services"
+            );
+            if (servicesSection) {
+              servicesSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+            return; // stop submission
+          }
+
+          const selectedServices = Array.from(checkedBoxes).map(
             (cb) =>
               cb.nextElementSibling.nextElementSibling.querySelector("h4")
                 .textContent
@@ -718,7 +760,7 @@
               if (response.ok) {
                 alert("Thank you! Your request has been sent.");
                 form.reset();
-                document.getElementById("selectedServices").value = ""; // clear hidden field
+                document.getElementById("selectedServices").value = "";
               } else {
                 alert("Oops! There was a problem submitting your form.");
               }
